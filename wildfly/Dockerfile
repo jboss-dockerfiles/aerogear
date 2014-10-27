@@ -20,11 +20,11 @@ RUN sed -i 's/.*requiretty$/#Defaults requiretty/' /etc/sudoers
 # Create the aerogear user
 RUN useradd -m aerogear -d /opt/aerogear -s /sbin/nologin
 
-# Change the owner of /opt/aerogear and /opt/wildfly directory
-RUN chown -R aerogear /opt/aerogear && chown -R aerogear /opt/wildfly*
+# Change the owner of /opt/aerogear and /opt/jboss/wildfly directory
+RUN chown -R aerogear /opt/aerogear && chown -R aerogear /opt/jboss/wildfly*
 
-# Change the group of /opt/aerogear and /opt/wildfly directory
-RUN chgrp -R users /opt/aerogear && chown -R aerogear /opt/wildfly*
+# Change the group of /opt/aerogear and /opt/jboss/wildfly directory
+RUN chgrp -R users /opt/aerogear && chown -R aerogear /opt/jboss/wildfly*
 
 # Allows aerogear user to run keytool and yum with sudo
 RUN echo "aerogear ALL=NOPASSWD:/usr/bin/keytool,/usr/bin/yum" >> /etc/sudoers
@@ -42,13 +42,13 @@ ADD configuration/certs/ $JBOSS_HOME/standalone/configuration/certs
 ADD configuration/database/unifiedpush-h2-ds.xml $JBOSS_HOME/standalone/deployments/
 
 # Switch to $JBOSS_HOME/configuration/certs
-WORKDIR /opt/wildfly/standalone/configuration/certs
+WORKDIR /opt/jboss/wildfly/standalone/configuration/certs
 
 # Execute the script to generate self signed certificates
 RUN ./certificate.sh
 
-# Switch to the working dir /opt/wildfly
-WORKDIR /opt/wildfly
+# Switch to the working dir /opt/jboss/wildfly
+WORKDIR /opt/jboss/wildfly
 
 # Expose SSL default port
 EXPOSE 8443
