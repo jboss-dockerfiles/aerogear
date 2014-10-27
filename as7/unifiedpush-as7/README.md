@@ -10,13 +10,13 @@ Follow the [instructions](http://docs.docker.com/installation/)
 
 **Note**: The image will run SSL by default with self signed certificates being automatically generated.
 
-`docker run -it -p 8443:8443 abstractj/unifiedpush-as7`
+`docker run -it -p 8443:8443 aerogear/unifiedpush-as7`
 
 ## Building the image (alternative)
 
 Clone the repo and build yourself:
 
-`docker build -t abstractj/unifiedpush-as7 .`
+`docker build -t aerogear/unifiedpush-as7 .`
 
 ## Accessing it
 

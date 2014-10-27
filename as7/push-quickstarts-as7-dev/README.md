@@ -16,13 +16,13 @@ There are two primary ways to configure it:
 
 ### Specify during the boot time
 
-`docker run -e CONFIG="$(cat resources/quickstarts-config-sample.json)" -it abstractj/push-quickstarts-as7-dev`
+`docker run -e CONFIG="$(cat resources/quickstarts-config-sample.json)" -it aerogear/push-quickstarts-as7-dev`
 
 ### Execute the configuration script
 
 Get Shell access:
 
-`docker run -it -p 8443:8443 abstractj/push-quickstarts-as7-dev`
+`docker run -it -p 8443:8443 aerogear/push-quickstarts-as7-dev`
 
 Execute the script:
 
@@ -32,7 +32,7 @@ Execute the script:
 
 Clone the repo and build yourself:
 
-`docker build -t abstractj/push-quickstarts-as7-dev .`
+`docker build -t aerogear/push-quickstarts-as7-dev .`
 
 ## Accessing it
 
@@ -50,7 +50,7 @@ It only exposes SSL port, all the requests will be redirected to HTTPS.
 
 Start Docker with Bash
 
-`docker run --rm -it --entrypoint=/bin/bash abstractj/push-quickstarts-as7-dev && cd ..`
+`docker run --rm -it --entrypoint=/bin/bash aerogear/push-quickstarts-as7-dev && cd ..`
 
 Add the configuration to fetch pull requests
 

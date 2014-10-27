@@ -1,6 +1,6 @@
-# Use latest abstractj/as7 image as the base
-FROM abstractj/as7
-MAINTAINER Bruno Oliveira <bruno@abstractj.org>
+# Use latest aerogear/as7 image as the base
+FROM aerogear/as7
+MAINTAINER Bruno Oliveira <bruno@aerogear.org>
 
 # Set the repository name
 ENV REPO_NAME aerogear-unifiedpush-server
