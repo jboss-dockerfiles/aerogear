@@ -10,13 +10,13 @@ Follow the [instructions](http://docs.docker.com/installation/)
 
 **Note**: The image will run SSL by default with self signed certificates being automatically generated.
 
-`docker run -it -p 8443:8443 abstractj/unifiedpush-wildfly-dev`
+`docker run -it -p 8443:8443 aerogear/unifiedpush-wildfly-dev`
 
 ## Building the image (alternative)
 
 Clone the repo and build yourself:
 
-`docker build -t abstractj/unifiedpush-wildfly-dev .`
+`docker build -t aerogear/unifiedpush-wildfly-dev .`
 
 ## Accessing it
 
@@ -34,7 +34,7 @@ It only exposes SSL port, all the requests will be redirected to HTTPS.
 
 Start Docker with Bash
 
-`docker run --rm -it --entrypoint=/bin/bash abstractj/unifiedpush-wildfly-dev && cd ..`
+`docker run --rm -it --entrypoint=/bin/bash aerogear/unifiedpush-wildfly-dev && cd ..`
 
 Add the configuration to fetch pull requests
 

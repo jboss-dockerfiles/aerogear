@@ -1,6 +1,6 @@
-# Use latest abstractj/as7 image as the base
-FROM abstractj/unifiedpush-wildfly-dev
-MAINTAINER Bruno Oliveira <bruno@abstractj.org>
+# Use latest aerogear/as7 image as the base
+FROM aerogear/unifiedpush-wildfly-dev
+MAINTAINER Bruno Oliveira <bruno@aerogear.org>
 
 # Set the repository name
 ENV REPO_NAME aerogear-push-quickstarts

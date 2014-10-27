@@ -1,6 +1,6 @@
-# Use latest abstractj/wildfly image as the base
-FROM abstractj/wildfly
-MAINTAINER Bruno Oliveira <bruno@abstractj.org>
+# Use latest aerogear/wildfly image as the base
+FROM aerogear/wildfly
+MAINTAINER Bruno Oliveira <bruno@aerogear.org>
 
 # Set the repository name
 ENV REPO_NAME aerogear-unifiedpush-server
