@@ -10,7 +10,7 @@ Follow the [instructions](http://docs.docker.com/installation/)
 
 **Note**: The image will run SSL by default with self signed certificates being automatically generated.
 
-`docker run -it -p 8443:8443 abstractj/wildfly`
+`docker run -it -p 8443:8443 aerogear/wildfly`
 
 ## Building the image
 
@@ -18,7 +18,7 @@ Follow the [instructions](http://docs.docker.com/installation/)
 
 Clone the repo and build yourself:
 
-`docker build -t abstractj/wildfly .`
+`docker build -t aerogear/wildfly .`
 
 
 ## Accessing it
