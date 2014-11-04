@@ -46,7 +46,7 @@
                     <properties path="application-roles.properties" relative-to="jboss.server.config.dir"/>
                 </authorization>
             </security-realm>
-	          <security-realm name="AeroGearRealmm">
+            <security-realm name="AeroGearRealm">
                 <server-identities>
                     <ssl>
                         <keystore path="certs/server.aerogear.dev.keystore" relative-to="jboss.server.config.dir" keystore-password="weak42" alias="server.aerogear.dev"/>
@@ -331,7 +331,7 @@
             <buffer-cache name="default"/>
             <server name="default-server">
                 <http-listener name="default" socket-binding="http"/>
-		            <https-listener name="https" socket-binding="https" security-realm="AeroGearRealmm"/>
+                <https-listener name="https" socket-binding="https" security-realm="AeroGearRealm"/>
                 <host name="default-host" alias="localhost">
                     <location name="/" handler="welcome-content"/>
                     <filter-ref name="server-header"/>
