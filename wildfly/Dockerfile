@@ -1,24 +1,18 @@
 # Use latest jboss/wildfly image as the base
-FROM jboss/wildfly
+FROM jboss/wildfly:9.0.0.Final
 MAINTAINER Bruno Oliveira <bruno@abstractj.org>
 
 # Run everything below as root user
 USER root
 
-# Set the Java environment variable
-ENV JAVA_HOME /usr/lib/jvm/java-1.7.0-openjdk
-
 # Clean the metadata
 RUN yum -q clean all
-
-# Disable requiretty to prevent Node.js sessions hangup
-RUN sed -i 's/.*requiretty$/#Defaults requiretty/' /etc/sudoers
 
 # Rename the original configuration file
 RUN mv $JBOSS_HOME/standalone/configuration/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml.orig
 
 # WildFly configuration file ready for HTTPS
-ADD configuration/xml/standalone-sample.xml $JBOSS_HOME/standalone/configuration/standalone.xml
+ADD configuration/xml/standalone-full-sample.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 # Add the certificate.sh script into $JBOSS_HOME/standalone/configuration/certs
 ADD configuration/certs/ $JBOSS_HOME/standalone/configuration/certs
