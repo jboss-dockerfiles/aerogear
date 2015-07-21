@@ -6,7 +6,14 @@ MAINTAINER Bruno Oliveira <bruno@abstractj.org>
 USER root
 
 # Clean the metadata
-RUN yum -q clean all
+RUN yum install -y unzip && yum install -y wget && yum -q clean all
+
+## MYSQL
+ENV mysql_module_dir=$JBOSS_HOME/modules/com/mysql/jdbc/main/
+RUN mkdir -p ${mysql_module_dir}
+RUN wget -O mysql-connector-java-5.1.18.jar http://search.maven.org/remotecontent\?filepath\=mysql/mysql-connector-java/5.1.18/mysql-connector-java-5.1.18.jar
+RUN mv mysql-connector-java-5.1.18.jar ${mysql_module_dir}
+COPY configuration/xml/mysql-module.xml ${mysql_module_dir}/module.xml
 
 # Rename the original configuration file
 RUN mv $JBOSS_HOME/standalone/configuration/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml.orig
@@ -16,9 +23,6 @@ ADD configuration/xml/standalone-full-sample.xml $JBOSS_HOME/standalone/configur
 
 # Add the certificate.sh script into $JBOSS_HOME/standalone/configuration/certs
 ADD configuration/certs/ $JBOSS_HOME/standalone/configuration/certs
-
-# Add the database configuration file to $JBOSS_HOME/standalone/deployments
-ADD configuration/database/unifiedpush-h2-ds.xml $JBOSS_HOME/standalone/deployments/
 
 # Switch to $JBOSS_HOME/configuration/certs
 WORKDIR /opt/jboss/wildfly/standalone/configuration/certs
