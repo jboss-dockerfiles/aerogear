@@ -1,39 +1,14 @@
 # AeroGear WildFly Docker image
 
-This base image prepare [WildFly](http://download.jboss.org/wildfly/8.1.0.Final/wildfly-8.1.0.Final.tar.gz) environment to successfully deploy AeroGear projects, as well the required configuration.
+This base image prepares [WildFly 9](http://wildfly.org/) to successfully deploy the AeroGear UnifiedPush Server project, including database and SSL configuration. This image is used on two slightly different variants on the UPS.
 
-## Install Docker
+### Running the stable UPS release
 
-Follow the [instructions](http://docs.docker.com/installation/)
+To run the latest stable release of the UnifiedPush Server, please use the image provided [here](./unifiedpush-wildfly).
 
-## Running the image
+### Running the latest and greatest UPS version (fresh from github)
 
-**Note**: The image will run SSL by default with self signed certificates being automatically generated.
-
-`docker run -it -p 8443:8443 aerogear/wildfly`
-
-## Building the image
-
-**Note**: Is not necessary to build this image, unless you're planning to extend it.
-
-Clone the repo and build yourself:
-
-`docker build -t aerogear/wildfly .`
-
-
-## Accessing it
-
-Get the image IP address, for example:
-
-`boot2docker ip` or `docker inspect IMAGENAME | grep -i IPAdr`
-
-Access it:
-
-It only exposes SSL port, all the requests will redirect to https.
-
-`https://myip:8443/`
-
-*Note*: The SSL certificate is automatically generated and self-signed
+To run the latest and greatest from the community, please use the image provided [here](./unifiedpush-wildfly-dev). This builds and deploys the lastest from our master branch!
 
 ## Contributing
 
