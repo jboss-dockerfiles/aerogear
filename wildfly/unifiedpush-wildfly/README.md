@@ -14,7 +14,7 @@ For our bundled Keycloak instance run the following command:
 
 
 ```shell
-docker run --name keycloakDEV \
+docker run --name keycloak \
            -p 5306:3306 \
            -e MYSQL_USER=unifiedpush \
            -e MYSQL_PASSWORD=unifiedpush \
