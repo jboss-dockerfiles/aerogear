@@ -12,15 +12,37 @@ We need to run two different datasources, and each has been slpit up into its ow
 
 For our bundled Keycloak instance run the following command:
 
-`docker run --name keycloakDEV -p 5306:3306 -e MYSQL_USER=unifiedpush -e MYSQL_PASSWORD=unifiedpush -e MYSQL_DATABASE=unifiedpush -e MYSQL_ROOT_PASSWORD=supersecret -d mysql`
+```shell
+docker run --name keycloakDEV \
+           -p 5306:3306 \
+           -e MYSQL_USER=unifiedpush \
+           -e MYSQL_PASSWORD=unifiedpush \
+           -e MYSQL_DATABASE=unifiedpush \
+           -e MYSQL_ROOT_PASSWORD=supersecret \
+           -d mysql
+```           
 
 For the database of the UnifiedPush Server itself, a similar command is needed:
 
-`docker run --name unifiedpushDEV -p 6306:3306 -e MYSQL_USER=unifiedpush -e MYSQL_PASSWORD=unifiedpush -e MYSQL_DATABASE=unifiedpush -e MYSQL_ROOT_PASSWORD=supersecret -d mysql`
+```shell
+docker run --name unifiedpushDEV \
+           -p 6306:3306 \
+           -e MYSQL_USER=unifiedpush \
+           -e MYSQL_PASSWORD=unifiedpush \
+           -e MYSQL_DATABASE=unifiedpush \
+           -e MYSQL_ROOT_PASSWORD=supersecret \
+           -d mysql
+```           
 
 The two databases are now linked into the container that serves WildFly, containing the latest release of the UPS
 
-`docker run --name ups-dev --link unifiedpushDEV:unifiedpush --link keycloakDEV:keycloak -p 8443:8443 -it aerogear/unifiedpush-wildfly-dev`
+```shell
+docker run --name ups-dev \
+           --link unifiedpushDEV:unifiedpush 
+           --link keycloakDEV:keycloak \
+           -p 8443:8443 \
+           -it aerogear/unifiedpush-wildfly-dev
+```           
 
 **Note**: The image will run SSL by default with self signed certificates being automatically generated.
 
