@@ -18,7 +18,7 @@ docker run --name keycloak \
            -p 5306:3306 \
            -e MYSQL_USER=unifiedpush \
            -e MYSQL_PASSWORD=unifiedpush \
-           -e MYSQL_DATABASE=unifiedpush \
+           -e MYSQL_DATABASE=keycloak \
            -e MYSQL_ROOT_PASSWORD=supersecret \
            -d mysql		   
 ```
@@ -50,7 +50,9 @@ docker run --name ups \
 
 ## Building the image (alternative)
 
-Clone the repo and build yourself:
+**Note**: First, you need to build the Dockerfile of the parent folder!
+
+Afterwards build the `unifiedpush-wildfly` image yourself, by running: 
 
 `docker build -t aerogear/unifiedpush-wildfly .`
 

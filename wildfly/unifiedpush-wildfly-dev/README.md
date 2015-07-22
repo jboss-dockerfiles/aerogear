@@ -17,7 +17,7 @@ docker run --name keycloakDEV \
            -p 5306:3306 \
            -e MYSQL_USER=unifiedpush \
            -e MYSQL_PASSWORD=unifiedpush \
-           -e MYSQL_DATABASE=unifiedpush \
+           -e MYSQL_DATABASE=keycloak \
            -e MYSQL_ROOT_PASSWORD=supersecret \
            -d mysql
 ```           
@@ -38,7 +38,7 @@ The two databases are now linked into the container that serves WildFly, contain
 
 ```shell
 docker run --name ups-dev \
-           --link unifiedpushDEV:unifiedpush 
+           --link unifiedpushDEV:unifiedpush \
            --link keycloakDEV:keycloak \
            -p 8443:8443 \
            -it aerogear/unifiedpush-wildfly-dev
@@ -48,7 +48,9 @@ docker run --name ups-dev \
 
 ## Building the image (alternative)
 
-Clone the repo and build yourself:
+**Note**: First, you need to build the Dockerfile of the parent folder!
+
+Afterwards build the `unifiedpush-wildfly-dev` image yourself, by running: 
 
 `docker build -t aerogear/unifiedpush-wildfly-dev .`
 
