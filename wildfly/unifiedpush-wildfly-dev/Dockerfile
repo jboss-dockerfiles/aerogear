@@ -11,9 +11,6 @@ ENV MAVEN_OPTS -Xmx768m -XX:+UseConcMarkSweepGC -XX:MaxPermSize=128m -XX:+CMSPer
 # Node environment variable
 ENV NPM_MODULES_HOME /opt/jboss/node_modules/
 
-# Java environment variable
-ENV JAVA_HOME /usr/lib/jvm/java-1.7.0-openjdk
-
 # Set the Maven version
 ENV MAVEN_VERSION 3.1.1
 
@@ -29,17 +26,20 @@ USER root
 # Allows aerogear user to run npm as sudo
 RUN echo "jboss ALL=NOPASSWD:/usr/bin/npm" >> /etc/sudoers
 
-# Install the dependencies required for Node.js
-RUN sudo yum install -q -y nodejs npm gcc make libpng libpng-devel git && yum -q clean all
-
-# Run everything below as aerogear user
-USER jboss
+# Install Node.js and git for CentOS7
+RUN yum install -y git && \
+    yum install -y \
+    https://rpm.nodesource.com/pub_0.12/el/7/x86_64/nodejs-0.12.7-1nodesource.el7.centos.x86_64.rpm && \
+    yum clean all -y
 
 # Clean the cache
 RUN npm cache clear
 
 # Install Node.js modules globally
-RUN sudo npm install -g grunt-cli bower@1.3.8 node-gyp
+RUN npm install -g grunt-cli bower@1.3.8 node-gyp
+
+# Run everything below as aerogear user
+USER jboss
 
 # Switch to the working dir /opt/jboss
 WORKDIR /opt/jboss
@@ -51,13 +51,13 @@ RUN mkdir tools && cd tools
 RUN mkdir -p $M2_HOME && cd $M2_HOME && curl http://mirror.nbtelecom.com.br/apache/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar zx --strip 1 -C $M2_HOME
 
 # Clone UnifiedPush server from the official repository
-RUN git clone https://github.com/jboss/$REPO_NAME.git
+RUN git clone https://github.com/aerogear/$REPO_NAME.git
 
 # Switch to the cloned repository and run Maven install
 RUN cd $REPO_NAME && mvn clean install -DskipTests=true
 
 # Switch to server directory from UnifiedPush
-WORKDIR /opt/jboss/jboss-unifiedpush-server/servers
+WORKDIR /opt/jboss/aerogear-unifiedpush-server/servers
 
 # Copy binary file for the auth-server with Keycloak to deployments folder
 RUN cp auth-server/target/*.war $JBOSS_HOME/standalone/deployments

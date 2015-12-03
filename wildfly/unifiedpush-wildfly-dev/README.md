@@ -8,13 +8,49 @@ Follow the [instructions](http://docs.docker.com/installation/)
 
 ## Running the image
 
-**Note**: The image will run SSL by default with self signed certificates being automatically generated.
+We need to run two different datasources, and each has been slpit up into its own container.
 
-`docker run -it -p 8443:8443 aerogear/unifiedpush-wildfly-dev`
+For our bundled Keycloak instance run the following command:
+
+```shell
+docker run --name keycloakDEV \
+           -p 5306:3306 \
+           -e MYSQL_USER=unifiedpush \
+           -e MYSQL_PASSWORD=unifiedpush \
+           -e MYSQL_DATABASE=keycloak \
+           -e MYSQL_ROOT_PASSWORD=supersecret \
+           -d mysql
+```           
+
+For the database of the UnifiedPush Server itself, a similar command is needed:
+
+```shell
+docker run --name unifiedpushDEV \
+           -p 6306:3306 \
+           -e MYSQL_USER=unifiedpush \
+           -e MYSQL_PASSWORD=unifiedpush \
+           -e MYSQL_DATABASE=unifiedpush \
+           -e MYSQL_ROOT_PASSWORD=supersecret \
+           -d mysql
+```           
+
+The two databases are now linked into the container that serves WildFly, containing the latest release of the UPS
+
+```shell
+docker run --name ups-dev \
+           --link unifiedpushDEV:unifiedpush \
+           --link keycloakDEV:keycloak \
+           -p 8443:8443 \
+           -it aerogear/unifiedpush-wildfly-dev
+```           
+
+**Note**: The image will run SSL by default with self signed certificates being automatically generated.
 
 ## Building the image (alternative)
 
-Clone the repo and build yourself:
+**Note**: First, you need to build the Dockerfile of the parent folder!
+
+Afterwards build the `unifiedpush-wildfly-dev` image yourself, by running: 
 
 `docker build -t aerogear/unifiedpush-wildfly-dev .`
 
