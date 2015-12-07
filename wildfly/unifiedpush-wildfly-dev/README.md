@@ -2,6 +2,8 @@
 
 This image prepares the environment required to build [AeroGear UnifiedPush](https://github.com/aerogear/aerogear-unifiedpush-server/) Server from scratch.
 
+For feature requests or bugs, please file a JIRA [here](https://issues.jboss.org/projects/AGPUSH/summary)
+
 ## Install Docker
 
 Follow the [instructions](http://docs.docker.com/installation/)

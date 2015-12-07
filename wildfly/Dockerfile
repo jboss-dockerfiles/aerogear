@@ -6,7 +6,7 @@ MAINTAINER Bruno Oliveira <bruno@abstractj.org>
 USER root
 
 # Clean the metadata
-RUN yum install -y unzip && yum install -y wget && yum -q clean all
+RUN yum install -y unzip wget && yum -q clean all
 
 ## MYSQL
 ENV mysql_module_dir=$JBOSS_HOME/modules/com/mysql/jdbc/main/
