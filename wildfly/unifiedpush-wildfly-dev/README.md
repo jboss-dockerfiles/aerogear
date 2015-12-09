@@ -22,7 +22,7 @@ docker run --name keycloakDEV \
            -e MYSQL_DATABASE=keycloak \
            -e MYSQL_ROOT_PASSWORD=supersecret \
            -d mysql
-```           
+```
 
 For the database of the UnifiedPush Server itself, a similar command is needed:
 
@@ -34,7 +34,7 @@ docker run --name unifiedpushDEV \
            -e MYSQL_DATABASE=unifiedpush \
            -e MYSQL_ROOT_PASSWORD=supersecret \
            -d mysql
-```           
+```
 
 The two databases are now linked into the container that serves WildFly, containing the latest release of the UPS
 
@@ -44,7 +44,7 @@ docker run --name ups-dev \
            --link keycloakDEV:keycloak \
            -p 8443:8443 \
            -it aerogear/unifiedpush-wildfly-dev
-```           
+```
 
 **Note**: The image will run SSL by default with self signed certificates being automatically generated.
 
@@ -52,7 +52,7 @@ docker run --name ups-dev \
 
 **Note**: First, you need to build the Dockerfile of the parent folder!
 
-Afterwards build the `unifiedpush-wildfly-dev` image yourself, by running: 
+Afterwards build the `unifiedpush-wildfly-dev` image yourself, by running:
 
 `docker build -t aerogear/unifiedpush-wildfly-dev .`
 
@@ -60,7 +60,7 @@ Afterwards build the `unifiedpush-wildfly-dev` image yourself, by running:
 
 Get the image IP address, for example:
 
-`boot2docker ip` or `docker inspect IMAGENAME | grep -i IPAdr`
+`docker-machine ip default` or `docker inspect IMAGENAME | grep -i IPAdr`
 
 Access it:
 
