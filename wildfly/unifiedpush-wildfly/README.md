@@ -22,7 +22,7 @@ docker run --name keycloak \
            -e MYSQL_PASSWORD=unifiedpush \
            -e MYSQL_DATABASE=keycloak \
            -e MYSQL_ROOT_PASSWORD=supersecret \
-           -d mysql		   
+           -d mysql
 ```
 
 
@@ -46,7 +46,7 @@ docker run --name ups \
            --link keycloak:keycloak \
            -p 8443:8443 \
            -it aerogear/unifiedpush-wildfly
-``` 
+```
 
 **Note**: The image will run SSL by default with self signed certificates being automatically generated.
 
@@ -54,7 +54,7 @@ docker run --name ups \
 
 **Note**: First, you need to build the Dockerfile of the parent folder!
 
-Afterwards build the `unifiedpush-wildfly` image yourself, by running: 
+Afterwards build the `unifiedpush-wildfly` image yourself, by running:
 
 `docker build -t aerogear/unifiedpush-wildfly .`
 
@@ -62,7 +62,7 @@ Afterwards build the `unifiedpush-wildfly` image yourself, by running:
 
 Get the image IP address, for example:
 
-`boot2docker ip` or `docker inspect IMAGENAME | grep -i IPAdr`
+`docker-machine ip default` or `docker inspect IMAGENAME | grep -i IPAdr`
 
 Access it:
 
