@@ -6,7 +6,7 @@ MAINTAINER Bruno Oliveira <bruno@aerogear.org>
 ENV REPO_NAME aerogear-unifiedpush-server
 
 # Set MAVEN_OPTS to increase the amount of memory available for Maven
-ENV MAVEN_OPTS -Xmx768m -XX:+UseConcMarkSweepGC -XX:MaxPermSize=128m -XX:+CMSPermGenSweepingEnabled
+ENV MAVEN_OPTS -Xmx768m -XX:+UseConcMarkSweepGC -XX:MaxPermSize=128m -XX:+CMSClassUnloadingEnabled
 
 # Node environment variable
 ENV NPM_MODULES_HOME /opt/jboss/node_modules/
