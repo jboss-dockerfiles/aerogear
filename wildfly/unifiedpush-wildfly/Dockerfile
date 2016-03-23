@@ -4,11 +4,10 @@ MAINTAINER Bruno Oliveira <bruno@aerogear.org>
 
 
 # Download Aerogear distribution
-ENV UPSVER=1.1.2
+ENV UPSVER=1.2.0-alpha.1
 ENV UPSDIST=/opt/aerogear-unifiedpush-server-$UPSVER
 
-### there is a bug, in the versioning. The TAG is correctly .Final, but the artifacts aren't...
-RUN curl -L -o /opt/aerogear-unifiedpush-server-$UPSVER-dist.tar.gz https://github.com/aerogear/aerogear-unifiedpush-server/releases/download/$UPSVER.Final/aerogear-unifiedpush-server-$UPSVER-dist.tar.gz
+RUN curl -L -o /opt/aerogear-unifiedpush-server-$UPSVER-dist.tar.gz https://github.com/aerogear/aerogear-unifiedpush-server/releases/download/$UPSVER/aerogear-unifiedpush-server-$UPSVER-dist.tar.gz
 WORKDIR /opt
 RUN tar zxf aerogear-unifiedpush-server-$UPSVER-dist.tar.gz
 
