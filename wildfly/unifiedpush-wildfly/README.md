@@ -16,34 +16,34 @@ For our bundled Keycloak instance run the following command:
 
 
 ```shell
-docker run --name keycloak \
-           -p 5306:3306 \
+docker run --name keycloakDB \
+           -p 10306:3306 \
            -e MYSQL_USER=unifiedpush \
            -e MYSQL_PASSWORD=unifiedpush \
            -e MYSQL_DATABASE=keycloak \
            -e MYSQL_ROOT_PASSWORD=supersecret \
-           -d mysql
+           -d mysql:5.5
 ```
 
 
 For the database of the UnifiedPush Server itself, a similar command is needed:
 
 ```shell
-docker run --name unifiedpush \
-           -p 3306:3306 \
+docker run --name unifiedpushDB \
+           -p 11306:3306 \
            -e MYSQL_USER=unifiedpush \
            -e MYSQL_PASSWORD=unifiedpush \
            -e MYSQL_DATABASE=unifiedpush \
            -e MYSQL_ROOT_PASSWORD=supersecret \
-           -d mysql
+           -d mysql:5.5
 ```
 
 The two databases are now linked into the container that serves WildFly, containing the latest release of the UPS
 
 ```shell
 docker run --name ups \
-           --link unifiedpush:unifiedpush \
-           --link keycloak:keycloak \
+           --link unifiedpushDB:unifiedpush \
+           --link keycloakDB:keycloak \
            -p 8443:8443 \
            -it aerogear/unifiedpush-wildfly
 ```
