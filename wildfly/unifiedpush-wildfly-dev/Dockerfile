@@ -54,7 +54,7 @@ RUN mkdir -p $M2_HOME && cd $M2_HOME && curl http://mirror.nbtelecom.com.br/apac
 RUN git clone https://github.com/aerogear/$REPO_NAME.git
 
 # Switch to the cloned repository and run Maven install
-RUN cd $REPO_NAME && mvn clean install -DskipTests=true
+RUN cd $REPO_NAME && git checkout 1.1.x-dev && mvn clean install -DskipTests=true
 
 # Switch to server directory from UnifiedPush
 WORKDIR /opt/jboss/aerogear-unifiedpush-server/servers
