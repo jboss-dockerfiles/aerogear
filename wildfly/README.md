@@ -1,6 +1,6 @@
 # AeroGear WildFly Docker image
 
-This base image prepares [WildFly 9](http://wildfly.org/) to successfully deploy the AeroGear UnifiedPush Server project, including database and SSL configuration. This image is used on two slightly different variants on the UPS.
+This base image prepares [WildFly 10.x](http://wildfly.org/) to successfully deploy the AeroGear UnifiedPush Server project, including database and SSL configuration. This image is used on two slightly different variants on the UPS.
 
 ## Running the stable UPS release
 
