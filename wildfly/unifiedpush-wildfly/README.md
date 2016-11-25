@@ -1,5 +1,13 @@
 # AeroGear UnifiedPush server environment
 
+[![](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/aerogear/unifiedpush-wildfly/)
+[![Docker Stars](https://img.shields.io/docker/stars/aerogear/unifiedpush-wildfly.svg?style=plastic)](https://registry.hub.docker.com/v2/repositories/aerogear/unifiedpush-wildfly/stars/count/)
+[![Docker pulls](https://img.shields.io/docker/pulls/aerogear/unifiedpush-wildfly.svg?style=plastic)](https://registry.hub.docker.com/v2/repositories/aerogear/unifiedpush-wildfly/)
+
+[![License](https://img.shields.io/:license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+
+
+
 This image prepares the environment required to run [AeroGear UnifiedPush](https://github.com/aerogear/aerogear-unifiedpush-server/) server with the binaries.
 
 For feature requests or bugs, please file a JIRA [here](https://issues.jboss.org/projects/AGPUSH/summary)
