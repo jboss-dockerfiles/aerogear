@@ -64,3 +64,8 @@ RUN cp auth-server/target/*.war $JBOSS_HOME/standalone/deployments
 
 # Copy binary file for the UnifiedPush server to deployments folder
 RUN cp ups-wildfly/target/*.war $JBOSS_HOME/standalone/deployments
+
+# copy and run startup script
+COPY entrypoint.sh /opt/
+ENTRYPOINT ["/opt/entrypoint.sh"]
+
