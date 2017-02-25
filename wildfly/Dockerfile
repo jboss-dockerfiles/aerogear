@@ -27,7 +27,7 @@ ADD configuration/certs/ $JBOSS_HOME/standalone/configuration/certs
 
 
 # update rights for everything to be jboss user owned
-RUN chown -R jboss:jboss $JBOSS_HOME/standalone
+#RUN chown -R jboss:jboss $JBOSS_HOME/standalone
 
 # Switch to $JBOSS_HOME/configuration/certs
 WORKDIR /opt/jboss/wildfly/standalone/configuration/certs
