@@ -1,5 +1,5 @@
 # Use latest jboss/wildfly image as the base
-FROM jboss/wildfly:latest
+FROM jboss/wildfly:10.1.0.Final
 MAINTAINER Bruno Oliveira <bruno@abstractj.org>
 
 # Run everything below as root user
