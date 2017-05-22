@@ -4,7 +4,7 @@ MAINTAINER Bruno Oliveira <bruno@aerogear.org>
 
 
 # Download Aerogear distribution
-ENV UPSVER=1.2.0-alpha.3
+ENV UPSVER=1.2.0-beta.1
 ENV UPSDIST=/opt/aerogear-unifiedpush-server-$UPSVER
 
 RUN curl -L -o /opt/aerogear-unifiedpush-server-$UPSVER-dist.tar.gz https://github.com/aerogear/aerogear-unifiedpush-server/releases/download/$UPSVER/aerogear-unifiedpush-server-$UPSVER-dist.tar.gz
