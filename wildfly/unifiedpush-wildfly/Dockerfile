@@ -1,10 +1,10 @@
 # Use latest aerogear/wildfly image as the base
 FROM aerogear/wildfly
-MAINTAINER Bruno Oliveira <bruno@aerogear.org>
+MAINTAINER Matthias Wessendorf <matzew@apache.org>
 
 
 # Download Aerogear distribution
-ENV UPSVER=1.2.0-alpha.1
+ENV UPSVER=1.2.0-beta.2
 ENV UPSDIST=/opt/aerogear-unifiedpush-server-$UPSVER
 
 RUN curl -L -o /opt/aerogear-unifiedpush-server-$UPSVER-dist.tar.gz https://github.com/aerogear/aerogear-unifiedpush-server/releases/download/$UPSVER/aerogear-unifiedpush-server-$UPSVER-dist.tar.gz
@@ -16,6 +16,9 @@ WORKDIR $UPSDIST/migrator
 RUN unzip ups-migrator-dist.zip
 COPY liquibase.properties  $UPSDIST/migrator/ups-migrator/
 
+# install openssl needed for certificate
+RUN yum install -y openssl && yum -q clean all
+
 # Run everything below as aerogear user
 USER jboss
 
@@ -23,8 +26,7 @@ USER jboss
 WORKDIR /opt/jboss/wildfly/standalone/deployments
 
 # copy war files
-RUN   cp $UPSDIST/servers/unifiedpush-auth-server.war $JBOSS_HOME/standalone/deployments \
-      && cp $UPSDIST/servers/unifiedpush-server-wildfly.war $JBOSS_HOME/standalone/deployments
+RUN cp $UPSDIST/servers/unifiedpush-server-wildfly.war $JBOSS_HOME/standalone/deployments
 
 
 # copy and run startup script
