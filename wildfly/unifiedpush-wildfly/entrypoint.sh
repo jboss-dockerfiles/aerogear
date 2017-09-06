@@ -20,5 +20,6 @@ else
 fi
 
 # launch wildfly
-exec /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 $@
+echo "launching wildfly"
+exec /opt/jboss/wildfly/bin/standalone.sh -Dups.realm.name=aerogear -Dups.auth.server.url=http://${KEYCLOAK_PORT_8080_TCP_ADDR}:${KEYCLOAK_PORT_8080_TCP_PORT}/auth -b 0.0.0.0 $@
 

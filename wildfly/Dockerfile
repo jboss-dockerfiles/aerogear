@@ -38,5 +38,5 @@ RUN ./certificate.sh
 # Switch to the working dir /opt/jboss/wildfly
 WORKDIR /opt/jboss/wildfly
 
-# Expose SSL default port
-EXPOSE 8443
+# Expose default port
+EXPOSE 8080

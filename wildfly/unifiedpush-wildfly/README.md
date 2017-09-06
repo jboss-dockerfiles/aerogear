@@ -18,19 +18,20 @@ Follow the [instructions](http://docs.docker.com/installation/)
 
 ## Running the image
 
-We need to run two different datasources, and each has been slpit up into its own container.
+We need to run a Keycloak Server and a database for the UPS itself.
 
-For our bundled Keycloak instance run the following command:
+### Keycloak Server
+
+For the Keycloak instance run the following command:
 
 
 ```shell
-docker run --name keycloakDB \
-           -p 10306:3306 \
-           -e MYSQL_USER=unifiedpush \
-           -e MYSQL_PASSWORD=unifiedpush \
-           -e MYSQL_DATABASE=keycloak \
-           -e MYSQL_ROOT_PASSWORD=supersecret \
-           -d mysql:5.5
+docker run --name keycloakSRV
+           -v /path/to/my/folder/containing/ups-realm:/keycloak-cfg \
+           -e KEYCLOAK_USER=admin \
+           -e KEYCLOAK_PASSWORD=admin \
+           jboss/keycloak:3.2.1.Final \
+           "-b 0.0.0.0 -Dkeycloak.import=/keycloak-cfg/ups-realm-sample.json"
 ```
 
 For the database of the UnifiedPush Server itself, a similar command is needed:
@@ -53,8 +54,8 @@ The two databases are now linked into the container that serves WildFly, contain
 ```shell
 docker run --name ups \
            --link unifiedpushDB:unifiedpush \
-           --link keycloakDB:keycloak \
-           -p 8443:8443 \
+           --link keycloakSRV:keycloak \
+           -p 9090:8080 \
            -it aerogear/unifiedpush-wildfly
 ```
 
@@ -84,7 +85,7 @@ Access it:
 
 It only exposes SSL port, all the requests will be redirected to HTTPS.
 
-`https://myip:8443/ag-push`
+`http://myip:9090/ag-push`
 
 ## Contributing
 
