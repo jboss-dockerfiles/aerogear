@@ -161,11 +161,11 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/UnifiedPushDS" enabled="true" use-java-context="true" pool-name="UnifiedPushDS" use-ccm="true">
-                     <connection-url>jdbc:mysql://${env.UNIFIEDPUSH_PORT_3306_TCP_ADDR}:${env.UNIFIEDPUSH_PORT_3306_TCP_PORT}/${env.UNIFIEDPUSH_ENV_MYSQL_DATABASE}?useUnicode=true&amp;characterEncoding=UTF-8</connection-url>
+                     <connection-url>jdbc:mysql://${env.MYSQL_SERVICE_HOST}:${env.MYSQL_SERVICE_PORT}/${env.MYSQL_DATABASE}?useUnicode=true&amp;characterEncoding=UTF-8</connection-url>
                      <driver>mysql</driver>
                      <security>
-                       <user-name>${env.UNIFIEDPUSH_ENV_MYSQL_USER}</user-name>
-                       <password>${env.UNIFIEDPUSH_ENV_MYSQL_PASSWORD}</password>
+                       <user-name>${env.MYSQL_USER}</user-name>
+                       <password>${env.MYSQL_PASSWORD}</password>
                      </security>
                      <validation>
                          <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
