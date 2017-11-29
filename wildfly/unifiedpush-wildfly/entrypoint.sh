@@ -4,7 +4,7 @@ set -e
 # run migrator
 echo "Starting Liquibase migration"
 cd $UPSDIST/migrator/ups-migrator
-./bin/ups-migrator update
+./bin/ups-migrator --url=jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/${MYSQL_DATABASE} --driver=com.mysql.jdbc.Driver --username=${MYSQL_USER} --password=${MYSQL_PASSWORD} --changeLogFile=liquibase/master.xml update
 
 # replace eventual private certificate
 if [ -d /keys ];then
