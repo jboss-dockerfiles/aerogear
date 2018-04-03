@@ -8,13 +8,13 @@ USER root
 # Clean the metadata
 RUN yum install -y unzip wget && yum -q clean all
 
-## MYSQL
-ENV mysql_module_dir=$JBOSS_HOME/modules/com/mysql/jdbc/main/
-ENV mysql_connector_jar=mysql-connector-java-5.1.44.jar
-RUN mkdir -p ${mysql_module_dir}
-RUN wget -O ${mysql_connector_jar} http://search.maven.org/remotecontent\?filepath\=mysql/mysql-connector-java/5.1.44/mysql-connector-java-5.1.44.jar
-RUN mv ${mysql_connector_jar} ${mysql_module_dir}
-COPY configuration/xml/mysql-module.xml ${mysql_module_dir}/module.xml
+## PostgreSQL
+ENV psql_module_dir=$JBOSS_HOME/modules/org/postgresql/main/
+ENV psql_connector_jar=postgresql-9.2-1004-jdbc41.jar
+RUN mkdir -p ${psql_module_dir}
+RUN wget -O ${psql_connector_jar} http://search.maven.org/remotecontent\?filepath\=org/postgresql/postgresql/9.2-1004-jdbc41/postgresql-9.2-1004-jdbc41.jar
+RUN mv ${psql_connector_jar} ${psql_module_dir}
+COPY configuration/xml/psql-module.xml ${psql_module_dir}/module.xml
 
 
 # Rename the original configuration file

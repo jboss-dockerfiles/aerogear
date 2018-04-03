@@ -160,31 +160,29 @@
                         <password>sa</password>
                     </security>
                 </datasource>
-                <datasource jndi-name="java:jboss/datasources/UnifiedPushDS" enabled="true" use-java-context="true" pool-name="UnifiedPushDS" use-ccm="true">
-                     <connection-url>jdbc:mysql://${env.MYSQL_SERVICE_HOST}:${env.MYSQL_SERVICE_PORT}/${env.MYSQL_DATABASE}?useUnicode=true&amp;characterEncoding=UTF-8</connection-url>
-                     <driver>mysql</driver>
-                     <security>
-                       <user-name>${env.MYSQL_USER}</user-name>
-                       <password>${env.MYSQL_PASSWORD}</password>
-                     </security>
-                     <validation>
-                         <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
-                         <background-validation>true</background-validation>
-                         <background-validation-millis>60000</background-validation-millis>
-                         <!--<validate-on-match>true</validate-on-match>-->
-                     </validation>
-                     <pool>
-                         <flush-strategy>IdleConnections</flush-strategy>
-                     </pool>
-                 </datasource>
-                 <drivers>
-                     <driver name="h2" module="com.h2database.h2">
-                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+                <datasource jndi-name="java:jboss/datasources/UnifiedPushDS" enabled="true" use-java-context="true" pool-name="UnifiedPushDS">
+                    <connection-url>jdbc:postgresql://${env.POSTGRES_SERVICE_HOST}:${env.POSTGRES_SERVICE_PORT}/${env.POSTGRES_DATABASE}</connection-url>
+                    <driver>postgresql</driver>
+                    <security>
+                      <user-name>${env.POSTGRES_USER}</user-name>
+                      <password>${env.POSTGRES_PASSWORD}</password>
+                    </security>
+                    <validation>
+                        <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
+                        <background-validation>true</background-validation>
+                    </validation>
+                    <pool>
+                        <flush-strategy>IdleConnections</flush-strategy>
+                    </pool>
+                </datasource>
+                <drivers>
+                    <driver name="h2" module="com.h2database.h2">
+                        <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                      </driver>
-                     <driver name="mysql" module="com.mysql.jdbc">
-                         <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
-                     </driver>
-                 </drivers>
+                     <driver name="postgresql" module="org.postgresql">
+                        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+	                </driver>
+                </drivers>
             </datasources>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:deployment-scanner:2.0">
