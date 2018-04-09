@@ -10,9 +10,9 @@ RUN yum install -y unzip wget && yum -q clean all
 
 ## PostgreSQL
 ENV psql_module_dir=$JBOSS_HOME/modules/org/postgresql/main/
-ENV psql_connector_jar=postgresql-9.2-1004-jdbc41.jar
+ENV psql_connector_jar=postgresql-jdbc.jar
 RUN mkdir -p ${psql_module_dir}
-RUN wget -O ${psql_connector_jar} http://search.maven.org/remotecontent\?filepath\=org/postgresql/postgresql/9.2-1004-jdbc41/postgresql-9.2-1004-jdbc41.jar
+RUN wget -O ${psql_connector_jar} http://search.maven.org/remotecontent\?filepath\=org/postgresql/postgresql/42.2.2/postgresql-42.2.2.jar
 RUN mv ${psql_connector_jar} ${psql_module_dir}
 COPY configuration/xml/psql-module.xml ${psql_module_dir}/module.xml
 
