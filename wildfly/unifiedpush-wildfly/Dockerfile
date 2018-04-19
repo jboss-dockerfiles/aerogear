@@ -4,7 +4,7 @@ MAINTAINER Matthias Wessendorf <matzew@apache.org>
 
 
 # Download Aerogear distribution
-ENV UPSVER=1.2.4.Final
+ENV UPSVER=2.0.1.Final
 ENV UPSDIST=/opt/aerogear-unifiedpush-server-$UPSVER
 
 RUN curl -L -o /opt/aerogear-unifiedpush-server-$UPSVER-dist.tar.gz https://github.com/aerogear/aerogear-unifiedpush-server/releases/download/$UPSVER/aerogear-unifiedpush-server-$UPSVER-dist.tar.gz
@@ -26,7 +26,7 @@ USER jboss
 WORKDIR /opt/jboss/wildfly/standalone/deployments
 
 # copy war files
-RUN cp $UPSDIST/servers/unifiedpush-server-wildfly.war $JBOSS_HOME/standalone/deployments
+RUN cp $UPSDIST/servers/unifiedpush-server-wildfly-keycloak.war $JBOSS_HOME/standalone/deployments
 
 
 # copy and run startup script
