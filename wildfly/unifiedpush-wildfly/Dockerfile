@@ -11,10 +11,10 @@ RUN curl -L -o /opt/aerogear-unifiedpush-server-$UPSVER-dist.tar.gz https://gith
 WORKDIR /opt
 RUN tar zxf aerogear-unifiedpush-server-$UPSVER-dist.tar.gz
 
-# unzip migrator and copy liquibase.properties
-WORKDIR $UPSDIST/migrator
-RUN unzip ups-migrator-dist.zip
-COPY liquibase.properties  $UPSDIST/migrator/ups-migrator/
+## unzip migrator and copy liquibase.properties
+##WORKDIR $UPSDIST/migrator
+##RUN unzip ups-migrator-dist.zip
+##COPY liquibase.properties  $UPSDIST/migrator/ups-migrator/
 
 # install openssl needed for certificate
 RUN yum install -y openssl && yum -q clean all
