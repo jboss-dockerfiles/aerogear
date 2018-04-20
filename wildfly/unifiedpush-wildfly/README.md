@@ -26,14 +26,14 @@ You can start a database for the UnifiedPush Server using the following command:
 $ docker run --name unifiedpushDB \
            -p 8080:8080 \
            -p 9090:9090 \
-           -e MYSQL_USER=unifiedpush \
-           -e MYSQL_PASSWORD=unifiedpush \
-           -e MYSQL_DATABASE=unifiedpush \
-           -e MYSQL_ROOT_PASSWORD=supersecret \
-           -d mysql:5.5
+           -e POSTGRES_USER=unifiedpush \
+           -e POSTGRES_PASSWORD=unifiedpush \
+           -e POSTGRES_DATABASE=unifiedpush \
+           -e POSTGRES_ROOT_PASSWORD=supersecret \
+           -d postgres:9.6
 ```
 
-This creates a MySQL instance and exposes the ports we'll need for Keycloak, UPS, and MySQL.
+This creates a Postgres instance and exposes the ports we'll need for Keycloak, UPS, and Postgres.
 
 You can run the commands below to start Keycloak and the UPS containers. These containers both share the same network as the database container due to the `--net` option that's passed so we don't need to specify the port options again. 
 
@@ -45,19 +45,19 @@ $ docker run -d --name keycloak \
            -v /path/to/my/folder/containing/ups-realm:/keycloak-cfg \
            -e KEYCLOAK_USER=admin \
            -e KEYCLOAK_PASSWORD=admin \
-           jboss/keycloak:3.4.2.Final \
+           jboss/keycloak:3.4.3.Final \
            "-b 0.0.0.0 -Dkeycloak.import=/keycloak-cfg/ups-realm-sample.json"
 
 $ docker run --name ups \
            --net=container:unifiedpushDB \
-           -e MYSQL_SERVICE_HOST=localhost \
-           -e MYSQL_SERVICE_PORT=3306 \
-           -e MYSQL_DATABASE=unifiedpush \
-           -e MYSQL_USER=unifiedpush \
-           -e MYSQL_PASSWORD=unifiedpush \
+           -e POSTGRES_SERVICE_HOST=localhost \
+           -e POSTGRES_SERVICE_PORT=3306 \
+           -e POSTGRES_DATABASE=unifiedpush \
+           -e POSTGRES_USER=unifiedpush \
+           -e POSTGRES_PASSWORD=unifiedpush \
            -e KEYCLOAK_SERVICE_HOST=localhost \
            -e KEYCLOAK_SERVICE_PORT=8080 \
-           -dit aerogear/unifiedpush-wildfly \
+           -dit aerogear/unifiedpush-wildfly:2.0.0 \
            "-Djboss.socket.binding.port-offset=1010"
 ```
 
