@@ -57,7 +57,7 @@ $ docker run --name ups \
            -e POSTGRES_PASSWORD=unifiedpush \
            -e KEYCLOAK_SERVICE_HOST=localhost \
            -e KEYCLOAK_SERVICE_PORT=8080 \
-           -dit aerogear/unifiedpush-wildfly:2.0.0 \
+           -dit aerogear/unifiedpush-wildfly:2.0.2 \
            "-Djboss.socket.binding.port-offset=1010"
 ```
 
