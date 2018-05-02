@@ -46,7 +46,7 @@ $ docker run --name ups \
            -e POSTGRES_DATABASE=unifiedpush \
            -e POSTGRES_USER=unifiedpush \
            -e POSTGRES_PASSWORD=supersecret \
-           -dit aerogear/unifiedpush-wildfly-plain:2.0.2
+           -dit aerogear/unifiedpush-wildfly-plain:2.1.0
 ```
 
 **Note**: The image will run SSL by default with self signed certificates being automatically generated.    
