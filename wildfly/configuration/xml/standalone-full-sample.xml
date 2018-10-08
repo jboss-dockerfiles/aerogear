@@ -160,48 +160,29 @@
                         <password>sa</password>
                     </security>
                 </datasource>
-                <datasource jndi-name="java:jboss/datasources/UnifiedPushDS" enabled="true" use-java-context="true" pool-name="UnifiedPushDS" use-ccm="true">
-                     <connection-url>jdbc:mysql://${env.UNIFIEDPUSH_PORT_3306_TCP_ADDR}:${env.UNIFIEDPUSH_PORT_3306_TCP_PORT}/${env.UNIFIEDPUSH_ENV_MYSQL_DATABASE}?useUnicode=true&amp;characterEncoding=UTF-8</connection-url>
-                     <driver>mysql</driver>
-                     <security>
-                       <user-name>${env.UNIFIEDPUSH_ENV_MYSQL_USER}</user-name>
-                       <password>${env.UNIFIEDPUSH_ENV_MYSQL_PASSWORD}</password>
-                     </security>
-                     <validation>
-                         <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
-                         <background-validation>true</background-validation>
-                         <background-validation-millis>60000</background-validation-millis>
-                         <!--<validate-on-match>true</validate-on-match>-->
-                     </validation>
-                     <pool>
-                         <flush-strategy>IdleConnections</flush-strategy>
-                     </pool>
-                 </datasource>
-                 <datasource jndi-name="java:jboss/datasources/KeycloakDS" enabled="true" use-java-context="true" pool-name="KeycloakDS" use-ccm="true">
-                     <connection-url>jdbc:mysql://${env.KEYCLOAK_PORT_3306_TCP_ADDR}:${env.KEYCLOAK_PORT_3306_TCP_PORT}/${env.KEYCLOAK_ENV_MYSQL_DATABASE}?useUnicode=true&amp;characterEncoding=UTF-8</connection-url>
-                     <driver>mysql</driver>
-                     <security>
-                       <user-name>${env.KEYCLOAK_ENV_MYSQL_USER}</user-name>
-                       <password>${env.KEYCLOAK_ENV_MYSQL_PASSWORD}</password>
-                     </security>
-                     <validation>
-                         <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
-                         <background-validation>true</background-validation>
-                         <background-validation-millis>60000</background-validation-millis>
-                         <!--<validate-on-match>true</validate-on-match>-->
-                     </validation>
-                     <pool>
-                         <flush-strategy>IdleConnections</flush-strategy>
-                     </pool>
-                 </datasource>
-                 <drivers>
-                     <driver name="h2" module="com.h2database.h2">
-                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+                <datasource jndi-name="java:jboss/datasources/UnifiedPushDS" enabled="true" use-java-context="true" pool-name="UnifiedPushDS">
+                    <connection-url>jdbc:postgresql://${env.POSTGRES_SERVICE_HOST}:${env.POSTGRES_SERVICE_PORT}/${env.POSTGRES_DATABASE}</connection-url>
+                    <driver>postgresql</driver>
+                    <security>
+                      <user-name>${env.POSTGRES_USER}</user-name>
+                      <password>${env.POSTGRES_PASSWORD}</password>
+                    </security>
+                    <validation>
+                        <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
+                        <background-validation>true</background-validation>
+                    </validation>
+                    <pool>
+                        <flush-strategy>IdleConnections</flush-strategy>
+                    </pool>
+                </datasource>
+                <drivers>
+                    <driver name="h2" module="com.h2database.h2">
+                        <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                      </driver>
-                     <driver name="mysql" module="com.mysql.jdbc">
-                         <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
-                     </driver>
-                 </drivers>
+                     <driver name="postgresql" module="org.postgresql">
+                        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+	                </driver>
+                </drivers>
             </datasources>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:deployment-scanner:2.0">
@@ -368,16 +349,8 @@
                 <address-setting name="jms.queue.APNsTokenBatchQueue" address-full-policy="FAIL" max-size-bytes="40000"/>
                 <address-setting name="jms.queue.GCMPushMessageQueue" max-redelivery-delay="5000" max-delivery-attempts="-1" redelivery-multiplier="1.5" redelivery-delay="1500"/>
                 <address-setting name="jms.queue.GCMTokenBatchQueue" address-full-policy="FAIL" max-size-bytes="40000"/>
-                <address-setting name="jms.queue.MPNSPushMessageQueue" max-redelivery-delay="5000" max-delivery-attempts="-1" redelivery-multiplier="1.5" redelivery-delay="1500"/>
-                <address-setting name="jms.queue.MPNSTokenBatchQueue" address-full-policy="FAIL" max-size-bytes="40000"/>
-                <address-setting name="jms.queue.SimplePushMessageQueue" max-redelivery-delay="5000" max-delivery-attempts="-1" redelivery-multiplier="1.5" redelivery-delay="1500"/>
-                <address-setting name="jms.queue.SimplePushTokenBatchQueue" address-full-policy="FAIL" max-size-bytes="40000"/>
                 <address-setting name="jms.queue.WNSPushMessageQueue" max-redelivery-delay="5000" max-delivery-attempts="-1" redelivery-multiplier="1.5" redelivery-delay="1500"/>
                 <address-setting name="jms.queue.WNSTokenBatchQueue" address-full-policy="FAIL" max-size-bytes="40000"/>
-                <address-setting name="jms.queue.MetricsQueue" max-delivery-attempts="-1"/>
-                <address-setting name="jms.queue.TriggerMetricCollectionQueue" max-delivery-attempts="-1" redelivery-delay="1000"/>
-                <address-setting name="jms.queue.BatchLoadedQueue" max-delivery-attempts="-1"/>
-                <address-setting name="jms.queue.AllBatchesLoadedQueue" max-delivery-attempts="-1"/>
                 <http-connector name="http-connector" endpoint="http-acceptor" socket-binding="http"/>
                 <http-connector name="http-connector-throughput" endpoint="http-acceptor-throughput" socket-binding="http">
                     <param name="batch-delay" value="50"/>
@@ -397,19 +370,8 @@
                 <jms-queue name="APNsTokenBatchQueue" entries="queue/APNsTokenBatchQueue"/>
                 <jms-queue name="GCMPushMessageQueue" entries="queue/GCMPushMessageQueue"/>
                 <jms-queue name="GCMTokenBatchQueue" entries="queue/GCMTokenBatchQueue"/>
-                <jms-queue name="MPNSPushMessageQueue" entries="queue/MPNSPushMessageQueue"/>
-                <jms-queue name="MPNSTokenBatchQueue" entries="queue/MPNSTokenBatchQueue"/>
-                <jms-queue name="SimplePushMessageQueue" entries="queue/SimplePushMessageQueue"/>
-                <jms-queue name="SimplePushTokenBatchQueue" entries="queue/SimplePushTokenBatchQueue"/>
                 <jms-queue name="WNSPushMessageQueue" entries="queue/WNSPushMessageQueue"/>
                 <jms-queue name="WNSTokenBatchQueue" entries="queue/WNSTokenBatchQueue"/>
-                <jms-queue name="MetricsQueue" entries="queue/MetricsQueue"/>
-                <jms-queue name="TriggerMetricCollectionQueue" entries="queue/TriggerMetricCollectionQueue"/>
-                <jms-queue name="TriggerVariantMetricCollectionQueue" entries="queue/TriggerVariantMetricCollectionQueue"/>
-                <jms-queue name="BatchLoadedQueue" entries="queue/BatchLoadedQueue"/>
-                <jms-queue name="AllBatchesLoadedQueue" entries="queue/AllBatchesLoadedQueue"/>
-                <jms-queue name="FreeServiceSlotQueue" entries="queue/FreeServiceSlotQueue"/>
-                <jms-topic name="MetricsProcessingStartedTopic" entries="topic/MetricsProcessingStartedTopic"/>
                 <connection-factory name="InVmConnectionFactory" entries="java:/ConnectionFactory" connectors="in-vm"/>
                 <connection-factory name="RemoteConnectionFactory" entries="java:jboss/exported/jms/RemoteConnectionFactory" connectors="http-connector"/>
                 <pooled-connection-factory name="activemq-ra" transaction="xa" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory" connectors="in-vm"/>
